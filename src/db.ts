@@ -1,4 +1,5 @@
 import mongoose, {model , Schema} from "mongoose"
+import { required } from "zod/mini";
 
 const MONGO_URI = process.env.MONGO_CONNECTION_STRING;
 
@@ -16,7 +17,7 @@ mongoose
 
 const UserSchema = new Schema ({
     username: {type: String , unique: true},
-    password: String,
+    password: {type: String, required: true}
 })
 
 export const Usermodel = model ('Users' , UserSchema);

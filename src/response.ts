@@ -12,14 +12,12 @@ export const successResponse = (
 
 export const errorResponse = (
   message: string,
-  code = "INTERNAL_ERROR",
   details: any = null
 ) => ({
   success: false,
   message,
   data: null,
   error: {
-    code,
     details,
   },
   meta: null,

@@ -1,4 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
+import rateLimit from "express-rate-limit";
 import { ZodError } from "zod";
 
 export const validate =
@@ -32,3 +33,21 @@ export const validate =
       next(err);
     }
   };
+
+
+  
+export const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // 5 attempts
+  standardHeaders: true,
+  legacyHeaders: false,
+  keyGenerator: (req) =>
+    `${req.ip}:${req.body?.username || "unknown"}`,
+  message: {
+    success: false,
+    message: "Too many login attempts. Try again later.",
+    data: null,
+    error: { code: "RATE_LIMITED" },
+    meta: null,
+  },
+});
