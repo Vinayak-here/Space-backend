@@ -20,6 +20,8 @@
     "zod": "^4.2.1"
   },
   "scripts": {
-    "runlocal": "bun src/index.ts"
+    "dev": "bun src/index.ts",
+    "build": "bun build src/index.ts --outdir dist --target bun",
+    "start": "bun dist/index.js"
   }
 }
